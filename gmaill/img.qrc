@@ -11,5 +11,7 @@
         <file>Screenshot_2024-10-09_092351-removebg-preview.png</file>
         <file>Screenshot_2024-10-09_093052-removebg-preview.png</file>
         <file>Screenshot_2024-10-09_093226-removebg-preview.png</file>
+        <file>Capture decran 2024-11-20 163046.png</file>
     </qresource>
+    <qresource prefix="/imag"/>
 </RCC>
