@@ -23,6 +23,7 @@ login::~login()
 
 void login::onLoginClicked()
 {
+
     QString username = ui->lineEditUsername->text();
     QString password = ui->lineEditPassword->text();
 
@@ -60,6 +61,10 @@ void login::onLoginClicked()
         // Erreur SQL
         QMessageBox::critical(this, "Erreur", "Erreur SQL : " + query.lastError().text());
     }
+}
+
+QString login::getemail(){
+   return ui->lineEditUsername->text();
 }
 
 

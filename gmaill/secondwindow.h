@@ -17,8 +17,9 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(const QString &email, QWidget *parent = nullptr);
     ~MainWindow();
+    void priviligae();
 
 private slots:
 
@@ -49,7 +50,8 @@ private:
     Ui::MainWindow *ui;
     personel p;
     QLineEdit *lineEdit;  // Your QLineEdit
-        QCompleter *completer;  // Declare QCompleter as a member
+    QCompleter *completer;  // Declare QCompleter as a member
+    QString useremail;
 
 
 };

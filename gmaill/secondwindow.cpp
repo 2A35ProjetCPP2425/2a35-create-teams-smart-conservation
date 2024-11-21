@@ -26,9 +26,10 @@
 #include <QPdfWriter>
 #include <QPainter>
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(const QString &email ,QWidget *parent)
     : QMainWindow(parent),
-      ui(new Ui::MainWindow)
+      ui(new Ui::MainWindow),
+      useremail(email)
 {
    // ui->setupUi(this);
 
@@ -36,6 +37,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     ui->setupUi(this);
+    priviligae();
+
+
+
 
     QAction *iconAction1 = new QAction(this);
     QIcon icon1(":/img/Screenshot_2024-10-08_134640-removebg-preview.png");
@@ -166,6 +171,10 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
+
+
+
+
 void MainWindow::on_ajouter_clicked()
 {
     int id = ui->lineEdit_id->text().toInt();
@@ -176,10 +185,11 @@ void MainWindow::on_ajouter_clicked()
     int salaire = ui->lineEdit_salaire->text().toInt();
     QString mail = ui->lineEdit_mail->text();
     int telephone = ui->lineEdit_telephone->text().toInt();
+    QString role =ui->comboBox_6->currentText();
 
 
     // Instanciation d'un objet de la classe Client
-    personel p(id, nom, prenom, date, poste, salaire, mail, telephone);
+    personel p(id, nom, prenom, date, poste, salaire, mail, telephone ,role);
 
     // Appel de la méthode ajouter() pour insérer l'objet dans la base de données
     bool test = p.ajouter();
@@ -201,10 +211,52 @@ void MainWindow::on_ajouter_clicked()
                               QMessageBox::Cancel);
     }
     connect(ui->modifier_3, &QPushButton::clicked, this, &MainWindow::on_modifier_3_clicked);
-
 }
 
 
+void MainWindow::priviligae(){
+    personel p;
+    QString role =p.getUserRole(useremail);
+    qDebug() << "role :" << role;
+
+    if (role == "client"){
+        ui->tabWidget->setCurrentIndex(0);
+        ui->tabWidget->setTabEnabled(1, false);  // Index starts at 0, so 1 corresponds to tab 2
+        ui->tabWidget->setTabEnabled(2, false);  // Disable tab 3
+        ui->tabWidget->setTabEnabled(3, false);  // Disable tab 4
+        ui->tabWidget->setTabEnabled(4, false);  // Disable tab 5
+    }
+    if (role == "personel"){
+        ui->tabWidget->setCurrentIndex(1);
+        ui->tabWidget->setTabEnabled(0, false);  // Index starts at 0, so 1 corresponds to tab 2
+        ui->tabWidget->setTabEnabled(2, false);  // Disable tab 3
+        ui->tabWidget->setTabEnabled(3, false);  // Disable tab 4
+        ui->tabWidget->setTabEnabled(4, false);  // Disable tab 5
+    }
+    if (role == "stock"){
+        ui->tabWidget->setCurrentIndex(2);
+        ui->tabWidget->setTabEnabled(0, false);  // Index starts at 0, so 1 corresponds to tab 2
+        ui->tabWidget->setTabEnabled(1, false);  // Disable tab 3
+        ui->tabWidget->setTabEnabled(3, false);  // Disable tab 4
+        ui->tabWidget->setTabEnabled(4, false);  // Disable tab 5
+    }
+    if (role == "commande"){
+        ui->tabWidget->setCurrentIndex(3);
+        ui->tabWidget->setTabEnabled(0, false);  // Index starts at 0, so 1 corresponds to tab 2
+        ui->tabWidget->setTabEnabled(1, false);  // Disable tab 3
+        ui->tabWidget->setTabEnabled(2, false);  // Disable tab 4
+        ui->tabWidget->setTabEnabled(4, false);  // Disable tab 5
+    }
+    if (role == "equipement"){
+        ui->tabWidget->setCurrentIndex(4);
+        ui->tabWidget->setTabEnabled(0, false);  // Index starts at 0, so 1 corresponds to tab 2
+        ui->tabWidget->setTabEnabled(1, false);  // Disable tab 3
+        ui->tabWidget->setTabEnabled(2, false);  // Disable tab 4
+        ui->tabWidget->setTabEnabled(3, false);  // Disable tab 5
+    }
+
+
+}
 
 
 void MainWindow::on_supprimer_clicked()
@@ -270,9 +322,10 @@ void MainWindow::on_modifier_clicked()
     int salaire = ui->lineEdit_salaire->text().toInt();
     QString mail = ui->lineEdit_mail->text();
     int telephone = ui->lineEdit_telephone->text().toInt();
+    QString role=ui->comboBox_6->currentText();
 
 
-    personel p(id, nom, prenom, date, poste, salaire, mail, telephone);
+    personel p(id, nom, prenom, date, poste, salaire, mail, telephone,role);
 
 
     p.setID(id);
@@ -501,9 +554,7 @@ void MainWindow::on_ajouter_2_clicked()//stat
 
 
 
-
-
-void MainWindow::on_lineEdit_textChanged(const QString &arg1)//recherche liste
+void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
     qDebug() << "Texte changé dans le QLineEdit:" << arg1;
 
@@ -516,7 +567,7 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)//recherche liste
 
     // Appeler la méthode rechercher pour obtenir les résultats
     qDebug() << "Appel de la méthode rechercher avec la valeur:" << arg1;
-   personel personel;
+    personel personel;
     QSqlQueryModel* model = personel.rechercher_sug(arg1);
 
     // Vider le listWidget avant d'ajouter les nouvelles suggestions
@@ -529,15 +580,23 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)//recherche liste
     for (int row = 0; row < model->rowCount(); ++row) {
         QString id = model->data(model->index(row, 0)).toString(); // Première colonne = ID
         QString nom = model->data(model->index(row, 1)).toString(); // Deuxième colonne = NOM
+        QString poste = model->data(model->index(row, 2)).toString(); // Troisième colonne = POSTE
 
-        // Créer une suggestion combinée avec ID et NOM
-        QString suggestion = id + " - " + nom;
+        // Créer une suggestion combinée avec ID, NOM et POSTE
+        QString suggestion = id + " - " + nom + " - " + poste;
 
         // Ajouter la suggestion au listWidget
         qDebug() << "Ajouter une suggestion:" << suggestion;
         ui->listWidget->addItem(suggestion);
     }
 }
+
+
+
+
+
+
+
 
 
 

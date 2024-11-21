@@ -17,7 +17,7 @@
 
 personel::personel()  {}
 
-personel::personel(int id, QString nom, QString prenom,QDate date,QString poste,int salaire, QString mail,int telephone)
+personel::personel(int id, QString nom, QString prenom,QDate date,QString poste,int salaire, QString mail,int telephone,QString role)
 {
     this->id = id;
     this->nom = nom;
@@ -27,6 +27,7 @@ personel::personel(int id, QString nom, QString prenom,QDate date,QString poste,
     this->salaire = salaire;
     this->mail = mail;
     this->telephone = telephone;
+    this->role=role;
 
 
 }
@@ -42,8 +43,8 @@ bool personel::ajouter()
    // QString res = QString::number(id);
 
 
-    query.prepare("INSERT INTO PERSONELL (ID, NOM, PRENOM, DATE_EMBAUCHE, POSTE, SALAIRE, MAIL, TELEPHONE ) "
-                  "VALUES (:ID, :NOM, :PRENOM, :DATE_EMBAUCHE, :POSTE, :SALAIRE, :MAIL, :TELEPHONE)");
+    query.prepare("INSERT INTO PERSONELL (ID, NOM, PRENOM, DATE_EMBAUCHE, POSTE, SALAIRE, MAIL, TELEPHONE ,role ) "
+                  "VALUES (:ID, :NOM, :PRENOM, :DATE_EMBAUCHE, :POSTE, :SALAIRE, :MAIL, :TELEPHONE , :role)");
 
     query.bindValue(":ID", id);
     query.bindValue(":NOM", nom);
@@ -53,6 +54,7 @@ bool personel::ajouter()
     query.bindValue(":SALAIRE", salaire);
     query.bindValue(":MAIL", mail);
     query.bindValue(":TELEPHONE", telephone);
+    query.bindValue(":role", role);
     return query.exec();
 
 
@@ -81,18 +83,11 @@ QSqlQueryModel* personel::afficher()
 bool personel::supprimer(int id, const QString &attribut)
 {
     QSqlQuery query;
+    QString res=QString::number(id);
+    query.prepare("Delete from PERSONELL where ID = :id ");
+    query.bindValue(":id", res);
 
-    // Construire la requête dynamique pour supprimer toute la ligne en fonction de l'ID
-    QString sql = QString("DELETE FROM PERSONELL WHERE id = %1").arg(id);
-
-    query.prepare(sql);
-
-    if (query.exec()) {
-        return true; // La ligne a été supprimée
-    } else {
-        qDebug() << "Erreur lors de la suppression de la ligne:" << query.lastError();
-        return false; // Une erreur est survenue
-    }
+    return query.exec();
 }
 
 
@@ -202,51 +197,42 @@ bool personel::exporterPDF(const QString& fileName, QSqlQueryModel* model) {
     printer.setPageSize(QPageSize(QPageSize::A4));
     printer.setPageOrientation(QPageLayout::Landscape);
     printer.setOutputFileName(fileName);
-
     QPainter painter(&printer);
     if (!painter.isActive()) {
         QMessageBox::warning(nullptr, "Erreur", "Impossible de dessiner sur l'imprimante.");
         return false;
     }
-
     int rowCount = model->rowCount();
     int columnCount = model->columnCount();
     int x = 0;
     int y = 0;
     int rowHeight = 20;
     int columnWidth = printer.pageLayout().paintRect().width() / columnCount;
-
     // Draw the title
     QFont titleFont = painter.font();
     titleFont.setPointSize(16);
     titleFont.setBold(true);
     painter.setFont(titleFont);
     painter.drawText(printer.pageLayout().paintRect(), Qt::AlignCenter, "Liste des personnels");
-
     y += 40; // Move down to leave space for the title
-
     // Set font for headers
     QFont headerFont = painter.font();
     headerFont.setPointSize(12);
     headerFont.setBold(true);
     painter.setFont(headerFont);
     painter.setPen(Qt::green); // Set text color for headers
-
     // Draw the table headers
     for (int col = 0; col < columnCount; ++col) {
         painter.drawText(x, y, columnWidth, rowHeight, Qt::AlignCenter, model->headerData(col, Qt::Horizontal).toString());
         x += columnWidth;
     }
-
     y += rowHeight;
     x = 0;
-
     // Set font for table data
     QFont dataFont = painter.font();
     dataFont.setPointSize(10);
     painter.setFont(dataFont);
     painter.setPen(Qt::black); // Set text color for data
-
     // Draw the table data
     for (int row = 0; row < rowCount; ++row) {
         for (int col = 0; col < columnCount; ++col) {
@@ -257,10 +243,8 @@ bool personel::exporterPDF(const QString& fileName, QSqlQueryModel* model) {
         y += rowHeight;
         x = 0;
     }
-
     return true;
 }
-
 
 
 QSqlQueryModel* personel::afficherTrieParID(bool ordreCroissant)
@@ -284,33 +268,47 @@ QSqlQueryModel* personel::afficherTrieParID(bool ordreCroissant)
 }
 #include <QDebug>
 
-QSqlQueryModel* personel::rechercher_sug(const QString &searchValue)
-{
-    qDebug() << "Recherche avec la valeur:" << searchValue;
 
-    QSqlQueryModel *model = new QSqlQueryModel();
+
+QSqlQueryModel* personel::rechercher_sug(const QString &critere) {
     QSqlQuery query;
+    QString queryString = "SELECT id, nom, poste FROM PERSONELL WHERE id LIKE '%" + critere + "%' OR nom LIKE '%" + critere + "%' OR poste LIKE '%" + critere + "%'";
 
-    // Préparer la requête SQL pour rechercher dans toutes les colonnes pertinentes
-    query.prepare("SELECT * FROM PERSONELL WHERE ID LIKE :value OR TELEPHONE LIKE :value OR NOM LIKE :value");
+    query.prepare(queryString);
+    query.exec();
 
-    // Ajouter les caractères % avant et après la valeur pour correspondre à n'importe quel texte contenant la valeur
-    query.bindValue(":value", "%" + searchValue + "%");
-
-    // Exécuter la requête
-    if (query.exec()) {
-        qDebug() << "Requête exécutée avec succès.";
-        model->setQuery(query);
-        model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
-        model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM"));
-        model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOM"));
-        model->setHeaderData(3, Qt::Horizontal, QObject::tr("DATE_EMBAUCHE"));
-        model->setHeaderData(4, Qt::Horizontal, QObject::tr("POSTE"));
-        model->setHeaderData(5, Qt::Horizontal, QObject::tr("SALAIRE"));
-        model->setHeaderData(6, Qt::Horizontal, QObject::tr("MAIL"));
-        model->setHeaderData(7, Qt::Horizontal, QObject::tr("TELEPHONE"));
-    } else {
-        qDebug() << "Erreur lors de l'exécution de la requête:" << query.lastError().text();
-    }
+    QSqlQueryModel* model = new QSqlQueryModel();
+    model->setQuery(query);
     return model;
 }
+
+
+QString personel::getUserRole(const QString &email) {
+    QSqlQuery query;
+
+    // Prepare the SQL query to select the user role based on the email
+    query.prepare("SELECT role FROM personell WHERE mail = :email");
+    query.bindValue(":email", email);
+
+    // Execute the query
+    if (!query.exec()) {
+        qDebug() << "Error executing query:" << query.lastError().text();
+        return QString();
+    }
+
+    // Fetch the result
+    if (query.next()) {
+        return query.value(0).toString();
+    } else {
+        qDebug() << "No user found with email:" << email;
+        return QString();
+    }
+}
+
+
+
+
+
+
+
+

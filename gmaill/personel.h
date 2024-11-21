@@ -18,12 +18,14 @@ class personel
     int id, telephone;
     int salaire; // Assurez-vous que salaire est de type float
     QDate date;
+    QString role;
 
 public:
     // Constructeurs
     personel();
-    personel(int id, QString nom, QString prenom, QDate date, QString poste, int salaire, QString mail, int telephone);
+    personel(int id, QString nom, QString prenom, QDate date, QString poste, int salaire, QString mail, int telephone , QString role);
  personel(int id);
+
     // Getters
     QString getNom() { return nom; }
     QString getPrenom() { return prenom; }
@@ -33,6 +35,7 @@ public:
     int getTelephone() { return telephone; }
     int getsalaire() { return salaire; } // Changez le type de retour en float
     QDate getDate() { return date; }
+    QString getrole() { return role; }
 
     // Setters
     void setNom(QString n) { nom = n; }
@@ -43,6 +46,7 @@ public:
     void setTelephone(int telephone1) { telephone = telephone1; }
     void setsalaire(int salaire1) { salaire = salaire1; }// Changez le type de paramètre en float
     void setDate(QDate d) { date = d; }
+    void setrole(QString r) { role = r; }
 
     bool exporterPDF(const QString& fileName, QSqlQueryModel* model);
     QSqlQueryModel* afficherTrieParID(bool ordreCroissant);
@@ -60,10 +64,13 @@ public:
 
     // Méthodes
     bool ajouter();
-   // bool supprimer(int id);//
+    bool supprimer(int id);
     QSqlQueryModel* afficher();
      bool modifier(int id);
       bool supprimer(int id, const QString &attribut);
+      QString getUserRole(const QString &email);
+
+
 private:
        // Model to hold the database query results
 };

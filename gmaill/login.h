@@ -15,9 +15,12 @@ class login : public QDialog
 public:
     explicit login(QWidget *parent = nullptr);  // Constructeur
     ~login();  // Destructeur
+    QString getemail();
+
 
 private slots:
     void onLoginClicked();  // Slot qui sera appelé lors du clic sur le bouton de connexion
+
 
 private:
     Ui::login *ui;  // Pointeur vers l'interface utilisateur générée par Qt Designer

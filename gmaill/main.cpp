@@ -4,8 +4,7 @@
 #include <QApplication>
 #include <QMessageBox>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
 
     QApplication a(argc, argv);
     Connection c;
@@ -13,7 +12,6 @@ int main(int argc, char *argv[])
 
     // Crée une fenêtre de connexion modale
     login loginWindow;
-    MainWindow w;
 
     // Utilise exec() pour rendre la fenêtre modale
     if (loginWindow.exec() == QDialog::Accepted) {
@@ -21,23 +19,28 @@ int main(int argc, char *argv[])
 
         // Vérifie si la connexion est réussie
         if (test) {
-            // Crée et affiche la fenêtre principale
+            QString email = loginWindow.getemail();
+            qDebug() << "email:" << email;
+            MainWindow w(email);
+
+            // Affiche la fenêtre principale
             w.show();
 
             // Affiche un message de succès de connexion
             QMessageBox::information(nullptr, QObject::tr("Database is open"),
                                      QObject::tr("Connection successful.\nClick OK to continue."),
                                      QMessageBox::Ok);
+
+            // Lancer la boucle principale de l'application pour la fenêtre principale
+            return a.exec();  // Démarre la boucle principale de l'application
         } else {
             // En cas d'échec de la connexion à la base de données
             QMessageBox::critical(nullptr, QObject::tr("Database is not open"),
                                   QObject::tr("Connection failed.\nPlease check your connection and try again."),
                                   QMessageBox::Ok);
-
-            // Si la connexion échoue, on peut afficher une fenêtre ou une action alternative
         }
     }
 
-    // Démarre la boucle principale de l'application
-    return a.exec();
+    // Si l'utilisateur annule la connexion ou autre, quitter l'application
+    return 0;
 }
