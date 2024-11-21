@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QSqlQueryModel>
 #include <QSqlError>
+#include <QTableView>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,12 +34,25 @@ private slots:
 
     void on_comboBox_2_activated(int index);
 
-    //void on_exporter_clicked();
+
+
+    void on_lineEdit_2_textChanged(const QString &arg1);
+    void on_searchTimeout();
+
+
+
+
+    void on_exporter_clicked();
+
+    void on_pushButton_29_clicked();
+    void on_pushButton_34_clicked();
+
+    void on_pushButton_35_clicked();
 
 private:
     Ui::MainWindow *ui;
     Client Etmp;
-
+QTimer *searchTimer;
      QSqlTableModel *model;
 void modifierClient();
 void on_pushButton_12_clicked();

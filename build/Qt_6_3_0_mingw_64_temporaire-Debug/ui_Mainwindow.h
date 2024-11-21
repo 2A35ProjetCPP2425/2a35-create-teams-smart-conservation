@@ -51,6 +51,7 @@ public:
     QComboBox *comboBox_7;
     QLineEdit *IDC_client;
     QTableView *tableView_2;
+    QPushButton *charger;
     QLabel *label;
     QWidget *tab_9;
     QGroupBox *groupBox_6;
@@ -282,12 +283,12 @@ public:
         tab_8->setObjectName(QString::fromUtf8("tab_8"));
         adresse = new QLineEdit(tab_8);
         adresse->setObjectName(QString::fromUtf8("adresse"));
-        adresse->setGeometry(QRect(40, 240, 141, 41));
+        adresse->setGeometry(QRect(110, 270, 141, 41));
         adresse->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
         nom1_2 = new QLineEdit(tab_8);
         nom1_2->setObjectName(QString::fromUtf8("nom1_2"));
-        nom1_2->setGeometry(QRect(40, 70, 141, 41));
+        nom1_2->setGeometry(QRect(110, 90, 141, 41));
         nom1_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
         label_9 = new QLabel(tab_8);
@@ -302,7 +303,7 @@ public:
 "}"));
         id_client = new QLineEdit(tab_8);
         id_client->setObjectName(QString::fromUtf8("id_client"));
-        id_client->setGeometry(QRect(110, 20, 141, 41));
+        id_client->setGeometry(QRect(110, 30, 141, 41));
         QFont font;
         font.setPointSize(8);
         id_client->setFont(font);
@@ -310,17 +311,17 @@ public:
 "color:black;"));
         H_achat = new QLineEdit(tab_8);
         H_achat->setObjectName(QString::fromUtf8("H_achat"));
-        H_achat->setGeometry(QRect(40, 300, 141, 41));
+        H_achat->setGeometry(QRect(110, 330, 141, 41));
         H_achat->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
         prenom1_2 = new QLineEdit(tab_8);
         prenom1_2->setObjectName(QString::fromUtf8("prenom1_2"));
-        prenom1_2->setGeometry(QRect(40, 120, 141, 41));
+        prenom1_2->setGeometry(QRect(110, 150, 141, 41));
         prenom1_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
         email_2 = new QLineEdit(tab_8);
         email_2->setObjectName(QString::fromUtf8("email_2"));
-        email_2->setGeometry(QRect(40, 180, 141, 41));
+        email_2->setGeometry(QRect(110, 210, 141, 41));
         email_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
         pushButton_10 = new QPushButton(tab_8);
@@ -472,17 +473,34 @@ public:
 ""));
         IDC_client = new QLineEdit(tab_8);
         IDC_client->setObjectName(QString::fromUtf8("IDC_client"));
-        IDC_client->setGeometry(QRect(40, 360, 141, 41));
+        IDC_client->setGeometry(QRect(110, 390, 141, 41));
         IDC_client->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
         tableView_2 = new QTableView(tab_8);
         tableView_2->setObjectName(QString::fromUtf8("tableView_2"));
         tableView_2->setGeometry(QRect(295, 71, 691, 261));
+        charger = new QPushButton(tab_8);
+        charger->setObjectName(QString::fromUtf8("charger"));
+        charger->setGeometry(QRect(560, 420, 121, 41));
+        charger->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: white;                      /* Text color */\n"
+"    border: 2px solid black;         /* Border width and color */\n"
+"    border-radius: 15px;              /* Round the corners */\n"
+"    background-color: #005e38;        /* Optional: Set a background color */\n"
+"    padding: 10px 20px;               /* Add padding for better aesthetics */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;        /* Change background color on hover */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #3e8e41;        /* Change background color when pressed */\n"
+"}"));
         label = new QLabel(tab_8);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(80, 370, 63, 20));
+        label->setGeometry(QRect(20, 30, 71, 31));
         tabWidget_3->addTab(tab_8, QString());
-        label->raise();
         label_9->raise();
         id_client->raise();
         H_achat->raise();
@@ -499,6 +517,8 @@ public:
         comboBox_7->raise();
         IDC_client->raise();
         tableView_2->raise();
+        charger->raise();
+        label->raise();
         tab_9 = new QWidget();
         tab_9->setObjectName(QString::fromUtf8("tab_9"));
         groupBox_6 = new QGroupBox(tab_9);
@@ -1864,7 +1884,7 @@ public:
         tabWidget_2->setCurrentIndex(0);
         tabWidget_4->setCurrentIndex(0);
         tabWidget_5->setCurrentIndex(0);
-        tabWidget_6->setCurrentIndex(0);
+        tabWidget_6->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1879,13 +1899,14 @@ public:
         pushButton_11->setText(QCoreApplication::translate("MainWindow", "Exporter", nullptr));
         pushButton_12->setText(QCoreApplication::translate("MainWindow", "Modifier", nullptr));
         pushButton_13->setText(QCoreApplication::translate("MainWindow", "Supprimer", nullptr));
-        comboBox_2->setItemText(0, QCoreApplication::translate("MainWindow", "tri\303\251", nullptr));
+        comboBox_2->setItemText(0, QCoreApplication::translate("MainWindow", "trier par", nullptr));
         comboBox_2->setItemText(1, QCoreApplication::translate("MainWindow", "nom", nullptr));
         comboBox_2->setItemText(2, QCoreApplication::translate("MainWindow", "id", nullptr));
         comboBox_2->setItemText(3, QString());
         comboBox_2->setItemText(4, QString());
 
-        label->setText(QCoreApplication::translate("MainWindow", "IDC", nullptr));
+        charger->setText(QCoreApplication::translate("MainWindow", "Charger", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "ID", nullptr));
         tabWidget_3->setTabText(tabWidget_3->indexOf(tab_8), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
         groupBox_6->setTitle(QCoreApplication::translate("MainWindow", "fidelite", nullptr));
         pushButton_29->setText(QCoreApplication::translate("MainWindow", "lister les clients fideles", nullptr));

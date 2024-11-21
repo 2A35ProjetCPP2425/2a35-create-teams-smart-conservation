@@ -16,12 +16,9 @@ private:
 public:
     Client() {}
 
-    // Constructeur uniquement déclaré ici, pas défini
-    Client(int, QString, QString, QString, QString, QString, int);
-    Client(int);
-    // Getters
-public:
-    // Constructeurs, destructeurs, et autres méthodes publiques...
+    // Constructeurs
+    Client(int idcl, QString nomcl, QString prenomcl, QString emailcl, QString adressecl, QString histocl, int IDC);
+    Client(int idcl);
 
     // Getters
     int getIdcl() const;
@@ -32,6 +29,7 @@ public:
     QString gethistocl() const;
     int getIDC() const;
 
+
     // Setters
     void setidcl(int id);
     void setnomcl(const QString& nom);
@@ -41,13 +39,17 @@ public:
     void sethistocl(const QString& historique);
     void setIDC(int idc);
 
+
+    // Méthodes
     bool ajouter();
-
     QSqlQueryModel* afficher();
-
-    bool supprimer(int);
-    bool modifierClient(int idcl, QString nomcl, QString prenomcl, QString emailcl, QString adressecl, QString histocl, int IDC);
-
+    bool supprimer(int id);
+    bool modifierClient(int idcl, const QString& nomcl, const QString& prenomcl, const QString& emailcl,
+                        const QString& adressecl, const QString& histocl, int IDC);
+    QSqlQueryModel* trier(const QString& colonne, const QString& direction);
+    QSqlQueryModel* rechercher(const QString& partialId);
+    bool existe();
+    bool mettreAJour();
 };
 
 #endif // CLIENT_H

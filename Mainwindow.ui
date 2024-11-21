@@ -56,7 +56,7 @@ QGroupBox::title {
       <rect>
        <x>60</x>
        <y>40</y>
-       <width>1071</width>
+       <width>1101</width>
        <height>711</height>
       </rect>
      </property>
@@ -145,12 +145,12 @@ QTableCornerButton::section {
       <attribute name="title">
        <string>Page</string>
       </attribute>
-      <widget class="QTabWidget" name="tabWidget_3">
+      <widget class="QTabWidget" name="statistique">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>991</width>
+         <width>981</width>
          <height>591</height>
         </rect>
        </property>
@@ -305,7 +305,7 @@ QPushButton:pressed {
           <string>Ajouter</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="pushButton_11">
+        <widget class="QPushButton" name="exporter">
          <property name="geometry">
           <rect>
            <x>280</x>
@@ -457,22 +457,27 @@ QComboBox:focus {
          </item>
          <item>
           <property name="text">
-           <string>nom</string>
+           <string>nom a-z</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>id</string>
+           <string> nom z-a</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string/>
+           <string>id croissant</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string/>
+           <string>id decroissant</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>date</string>
           </property>
          </item>
         </widget>
@@ -536,7 +541,7 @@ color:black;</string>
           <rect>
            <x>295</x>
            <y>71</y>
-           <width>691</width>
+           <width>681</width>
            <height>261</height>
           </rect>
          </property>
@@ -584,13 +589,91 @@ QPushButton:pressed {
           <string>ID</string>
          </property>
         </widget>
+        <widget class="QLabel" name="label_3">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Nom</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_4">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>150</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Prenom</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_5">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>210</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Email</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_6">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>280</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Adresse</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_7">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>330</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>historique</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_13">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>390</y>
+           <width>71</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>IDC</string>
+         </property>
+        </widget>
         <zorder>label_9</zorder>
         <zorder>id_client</zorder>
         <zorder>H_achat</zorder>
         <zorder>prenom1_2</zorder>
         <zorder>email_2</zorder>
         <zorder>pushButton_10</zorder>
-        <zorder>pushButton_11</zorder>
+        <zorder>exporter</zorder>
         <zorder>pushButton_12</zorder>
         <zorder>pushButton_13</zorder>
         <zorder>lineEdit_2</zorder>
@@ -602,6 +685,12 @@ QPushButton:pressed {
         <zorder>tableView_2</zorder>
         <zorder>charger</zorder>
         <zorder>label</zorder>
+        <zorder>label_3</zorder>
+        <zorder>label_4</zorder>
+        <zorder>label_5</zorder>
+        <zorder>label_6</zorder>
+        <zorder>label_7</zorder>
+        <zorder>label_13</zorder>
        </widget>
        <widget class="QWidget" name="tab_9">
         <attribute name="title">
@@ -610,10 +699,10 @@ QPushButton:pressed {
         <widget class="QGroupBox" name="groupBox_6">
          <property name="geometry">
           <rect>
-           <x>140</x>
-           <y>100</y>
-           <width>291</width>
-           <height>251</height>
+           <x>10</x>
+           <y>0</y>
+           <width>951</width>
+           <height>431</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -626,71 +715,30 @@ QPushButton:pressed {
 }</string>
          </property>
          <property name="title">
-          <string>fidelite</string>
+          <string>systeme de recommandation</string>
          </property>
-         <widget class="QPushButton" name="pushButton_29">
+         <widget class="QTableView" name="tableView">
           <property name="geometry">
            <rect>
-            <x>30</x>
-            <y>110</y>
-            <width>231</width>
-            <height>51</height>
+            <x>50</x>
+            <y>40</y>
+            <width>841</width>
+            <height>361</height>
            </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
-    color: white;                      /* Text color */
-    border: 2px solid black;         /* Border width and color */
-    border-radius: 15px;              /* Round the corners */
-    background-color: #005e38;        /* Optional: Set a background color */
-    padding: 10px 20px;               /* Add padding for better aesthetics */
-}
-
-QPushButton:hover {
-    background-color: #45a049;        /* Change background color on hover */
-}
-
-QPushButton:pressed {
-    background-color: #3e8e41;        /* Change background color when pressed */
-}</string>
-          </property>
-          <property name="text">
-           <string>lister les clients fideles</string>
           </property>
          </widget>
         </widget>
-        <widget class="QGroupBox" name="groupBox_7">
+        <widget class="QPushButton" name="pushButton_29">
          <property name="geometry">
           <rect>
-           <x>590</x>
-           <y>100</y>
-           <width>291</width>
-           <height>251</height>
+           <x>350</x>
+           <y>410</y>
+           <width>231</width>
+           <height>51</height>
           </rect>
          </property>
          <property name="styleSheet">
-          <string notr="true">QGroupBox {
-    background-color: #a6c868;     /* Set background color to white */
-    border: 2px solid;   /* Set border color */
-    border-radius: 10px;         /* Rounded corners */
-    margin-top: 10px;            /* Space for the title */
-    padding: 10px;               /* Padding inside the box */
-}</string>
-         </property>
-         <property name="title">
-          <string>Systeme de crecommandation</string>
-         </property>
-         <widget class="QPushButton" name="pushButton_30">
-          <property name="geometry">
-           <rect>
-            <x>30</x>
-            <y>110</y>
-            <width>231</width>
-            <height>51</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">QPushButton {
+          <string notr="true">QPushButton {
     color: white;                      /* Text color */
     border: 2px solid black;         /* Border width and color */
     border-radius: 15px;              /* Round the corners */
@@ -705,11 +753,122 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #3e8e41;        /* Change background color when pressed */
 }</string>
-          </property>
-          <property name="text">
-           <string>Recommander des achats</string>
+         </property>
+         <property name="text">
+          <string>recomander les achats</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_17">
+        <attribute name="title">
+         <string>Page</string>
+        </attribute>
+        <widget class="QPushButton" name="pushButton_34">
+         <property name="geometry">
+          <rect>
+           <x>360</x>
+           <y>470</y>
+           <width>231</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: white;                      /* Text color */
+    border: 2px solid black;         /* Border width and color */
+    border-radius: 15px;              /* Round the corners */
+    background-color: #005e38;        /* Optional: Set a background color */
+    padding: 10px 20px;               /* Add padding for better aesthetics */
+}
+
+QPushButton:hover {
+    background-color: #45a049;        /* Change background color on hover */
+}
+
+QPushButton:pressed {
+    background-color: #3e8e41;        /* Change background color when pressed */
+}</string>
+         </property>
+         <property name="text">
+          <string>Statiques</string>
+         </property>
+        </widget>
+        <widget class="QGroupBox" name="groupBox_11">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>20</y>
+           <width>971</width>
+           <height>451</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QGroupBox {
+    background-color: #a6c868;     /* Set background color to white */
+    border: 2px solid;   /* Set border color */
+    border-radius: 10px;         /* Rounded corners */
+    margin-top: 10px;            /* Space for the title */
+    padding: 10px;               /* Padding inside the box */
+}</string>
+         </property>
+         <property name="title">
+          <string>Statistique</string>
+         </property>
+         <widget class="QColumnView" name="columnView">
+          <property name="geometry">
+           <rect>
+            <x>30</x>
+            <y>40</y>
+            <width>911</width>
+            <height>391</height>
+           </rect>
           </property>
          </widget>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="tab_16">
+        <attribute name="title">
+         <string>Page</string>
+        </attribute>
+        <widget class="QTableView" name="tableView_3">
+         <property name="geometry">
+          <rect>
+           <x>40</x>
+           <y>0</y>
+           <width>931</width>
+           <height>461</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_35">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>460</y>
+           <width>231</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: white;                      /* Text color */
+    border: 2px solid black;         /* Border width and color */
+    border-radius: 15px;              /* Round the corners */
+    background-color: #005e38;        /* Optional: Set a background color */
+    padding: 10px 20px;               /* Add padding for better aesthetics */
+}
+
+QPushButton:hover {
+    background-color: #45a049;        /* Change background color on hover */
+}
+
+QPushButton:pressed {
+    background-color: #3e8e41;        /* Change background color when pressed */
+}</string>
+         </property>
+         <property name="text">
+          <string>Historique</string>
+         </property>
         </widget>
        </widget>
       </widget>
