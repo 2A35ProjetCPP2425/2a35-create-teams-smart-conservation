@@ -331,9 +331,14 @@ Makefile: ../../rendu1009.pro C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/win32-g++/qma
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/yacc.prf \
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/lex.prf \
 		../../rendu1009.pro \
+		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6PrintSupport.prl \
+		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Charts.prl \
+		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6OpenGLWidgets.prl \
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Widgets.prl \
+		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6OpenGL.prl \
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Gui.prl \
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Sql.prl \
+		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6SerialPort.prl \
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Core.prl \
 		C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/build_pass.prf \
 		../../img.qrc
@@ -599,9 +604,14 @@ C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/exceptions.prf:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/yacc.prf:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/lex.prf:
 ../../rendu1009.pro:
+C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6PrintSupport.prl:
+C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Charts.prl:
+C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6OpenGLWidgets.prl:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Widgets.prl:
+C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6OpenGL.prl:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Gui.prl:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Sql.prl:
+C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6SerialPort.prl:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Core.prl:
 C:/Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/build_pass.prf:
 ../../img.qrc:

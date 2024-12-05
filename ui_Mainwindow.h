@@ -40,7 +40,6 @@ public:
     QLineEdit *nom1_2;
     QLabel *label_9;
     QLineEdit *id_client;
-    QLineEdit *H_achat;
     QLineEdit *prenom1_2;
     QLineEdit *email_2;
     QPushButton *pushButton_10;
@@ -50,7 +49,6 @@ public:
     QLineEdit *lineEdit_2;
     QComboBox *comboBox_2;
     QComboBox *comboBox_7;
-    QLineEdit *IDC_client;
     QTableView *tableView_2;
     QPushButton *charger;
     QLabel *label;
@@ -58,8 +56,9 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
-    QLabel *label_7;
-    QLabel *label_13;
+    QLineEdit *IDCL_c;
+    QLineEdit *IDC_c;
+    QPushButton *pushButton_11;
     QWidget *tab_9;
     QGroupBox *groupBox_6;
     QTableView *tableView;
@@ -71,6 +70,11 @@ public:
     QWidget *tab_16;
     QTableView *tableView_3;
     QPushButton *pushButton_35;
+    QWidget *tab_18;
+    QPushButton *pushButton_Ajouter;
+    QLabel *label_7;
+    QLineEdit *id_client_3;
+    QLabel *label_13;
     QWidget *tab;
     QTabWidget *tabWidget_2;
     QWidget *tab_6;
@@ -306,7 +310,7 @@ public:
 "color:black;"));
         label_9 = new QLabel(tab_8);
         label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setGeometry(QRect(0, 0, 271, 451));
+        label_9->setGeometry(QRect(0, 0, 271, 421));
         label_9->setStyleSheet(QString::fromUtf8("QLabel {\n"
 "    background-color: #a6c868;     /* Set background color to white */\n"
 "    border: 2px solid;   /* Set border color */\n"
@@ -322,11 +326,6 @@ public:
         id_client->setFont(font);
         id_client->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 "color:black;"));
-        H_achat = new QLineEdit(tab_8);
-        H_achat->setObjectName(QString::fromUtf8("H_achat"));
-        H_achat->setGeometry(QRect(110, 330, 141, 41));
-        H_achat->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-"color:black;"));
         prenom1_2 = new QLineEdit(tab_8);
         prenom1_2->setObjectName(QString::fromUtf8("prenom1_2"));
         prenom1_2->setGeometry(QRect(110, 150, 141, 41));
@@ -339,7 +338,7 @@ public:
 "color:black;"));
         pushButton_10 = new QPushButton(tab_8);
         pushButton_10->setObjectName(QString::fromUtf8("pushButton_10"));
-        pushButton_10->setGeometry(QRect(60, 470, 121, 41));
+        pushButton_10->setGeometry(QRect(70, 360, 121, 41));
         pushButton_10->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    color: white;                      /* Text color */\n"
 "    border: 2px solid black;         /* Border width and color */\n"
@@ -357,7 +356,7 @@ public:
 "}"));
         exporter = new QPushButton(tab_8);
         exporter->setObjectName(QString::fromUtf8("exporter"));
-        exporter->setGeometry(QRect(280, 420, 121, 41));
+        exporter->setGeometry(QRect(280, 340, 121, 41));
         exporter->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    color: white;                      /* Text color */\n"
 "    border: 2px solid black;         /* Border width and color */\n"
@@ -375,7 +374,7 @@ public:
 "}"));
         pushButton_12 = new QPushButton(tab_8);
         pushButton_12->setObjectName(QString::fromUtf8("pushButton_12"));
-        pushButton_12->setGeometry(QRect(690, 420, 121, 41));
+        pushButton_12->setGeometry(QRect(680, 350, 121, 41));
         pushButton_12->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    color: white;                      /* Text color */\n"
 "    border: 2px solid black;         /* Border width and color */\n"
@@ -393,7 +392,7 @@ public:
 "}"));
         pushButton_13 = new QPushButton(tab_8);
         pushButton_13->setObjectName(QString::fromUtf8("pushButton_13"));
-        pushButton_13->setGeometry(QRect(820, 420, 121, 41));
+        pushButton_13->setGeometry(QRect(810, 350, 121, 41));
         pushButton_13->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    color: white;                      /* Text color */\n"
 "    border: 2px solid black;         /* Border width and color */\n"
@@ -455,7 +454,7 @@ public:
 ""));
         comboBox_7 = new QComboBox(tab_8);
         comboBox_7->setObjectName(QString::fromUtf8("comboBox_7"));
-        comboBox_7->setGeometry(QRect(410, 420, 114, 31));
+        comboBox_7->setGeometry(QRect(410, 350, 114, 31));
         comboBox_7->setStyleSheet(QString::fromUtf8("QComboBox {\n"
 "    background-color: white;/* Background color */\n"
 "    color: black;              /* Text color */\n"
@@ -485,17 +484,12 @@ public:
 "    border: 2px solid black;  /* Border color when focused */\n"
 "}\n"
 ""));
-        IDC_client = new QLineEdit(tab_8);
-        IDC_client->setObjectName(QString::fromUtf8("IDC_client"));
-        IDC_client->setGeometry(QRect(110, 390, 141, 41));
-        IDC_client->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
-"color:black;"));
         tableView_2 = new QTableView(tab_8);
         tableView_2->setObjectName(QString::fromUtf8("tableView_2"));
         tableView_2->setGeometry(QRect(295, 71, 681, 261));
         charger = new QPushButton(tab_8);
         charger->setObjectName(QString::fromUtf8("charger"));
-        charger->setGeometry(QRect(560, 420, 121, 41));
+        charger->setGeometry(QRect(540, 350, 121, 41));
         charger->setStyleSheet(QString::fromUtf8("QPushButton {\n"
 "    color: white;                      /* Text color */\n"
 "    border: 2px solid black;         /* Border width and color */\n"
@@ -526,16 +520,37 @@ public:
         label_6 = new QLabel(tab_8);
         label_6->setObjectName(QString::fromUtf8("label_6"));
         label_6->setGeometry(QRect(20, 280, 71, 31));
-        label_7 = new QLabel(tab_8);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-        label_7->setGeometry(QRect(20, 330, 71, 31));
-        label_13 = new QLabel(tab_8);
-        label_13->setObjectName(QString::fromUtf8("label_13"));
-        label_13->setGeometry(QRect(20, 390, 71, 31));
+        IDCL_c = new QLineEdit(tab_8);
+        IDCL_c->setObjectName(QString::fromUtf8("IDCL_c"));
+        IDCL_c->setGeometry(QRect(390, 410, 141, 41));
+        IDCL_c->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+"color:black;"));
+        IDC_c = new QLineEdit(tab_8);
+        IDC_c->setObjectName(QString::fromUtf8("IDC_c"));
+        IDC_c->setGeometry(QRect(390, 460, 141, 41));
+        IDC_c->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+"color:black;"));
+        pushButton_11 = new QPushButton(tab_8);
+        pushButton_11->setObjectName(QString::fromUtf8("pushButton_11"));
+        pushButton_11->setGeometry(QRect(570, 440, 121, 41));
+        pushButton_11->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: white;                      /* Text color */\n"
+"    border: 2px solid black;         /* Border width and color */\n"
+"    border-radius: 15px;              /* Round the corners */\n"
+"    background-color: #005e38;        /* Optional: Set a background color */\n"
+"    padding: 10px 20px;               /* Add padding for better aesthetics */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;        /* Change background color on hover */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #3e8e41;        /* Change background color when pressed */\n"
+"}"));
         statistique->addTab(tab_8, QString());
         label_9->raise();
         id_client->raise();
-        H_achat->raise();
         prenom1_2->raise();
         email_2->raise();
         pushButton_10->raise();
@@ -547,7 +562,6 @@ public:
         nom1_2->raise();
         adresse->raise();
         comboBox_7->raise();
-        IDC_client->raise();
         tableView_2->raise();
         charger->raise();
         label->raise();
@@ -555,8 +569,9 @@ public:
         label_4->raise();
         label_5->raise();
         label_6->raise();
-        label_7->raise();
-        label_13->raise();
+        IDCL_c->raise();
+        IDC_c->raise();
+        pushButton_11->raise();
         tab_9 = new QWidget();
         tab_9->setObjectName(QString::fromUtf8("tab_9"));
         groupBox_6 = new QGroupBox(tab_9);
@@ -649,6 +664,42 @@ public:
 "    background-color: #3e8e41;        /* Change background color when pressed */\n"
 "}"));
         statistique->addTab(tab_16, QString());
+        tab_18 = new QWidget();
+        tab_18->setObjectName(QString::fromUtf8("tab_18"));
+        pushButton_Ajouter = new QPushButton(tab_18);
+        pushButton_Ajouter->setObjectName(QString::fromUtf8("pushButton_Ajouter"));
+        pushButton_Ajouter->setGeometry(QRect(380, 350, 231, 51));
+        pushButton_Ajouter->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: white;                      /* Text color */\n"
+"    border: 2px solid black;         /* Border width and color */\n"
+"    border-radius: 15px;              /* Round the corners */\n"
+"    background-color: #005e38;        /* Optional: Set a background color */\n"
+"    padding: 10px 20px;               /* Add padding for better aesthetics */\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background-color: #45a049;        /* Change background color on hover */\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    background-color: #3e8e41;        /* Change background color when pressed */\n"
+"}"));
+        label_7 = new QLabel(tab_18);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setGeometry(QRect(322, 209, 351, 91));
+        label_7->setStyleSheet(QString::fromUtf8("alternate-background-color: rgb(255, 255, 255);\n"
+"background-color: rgb(255, 255, 255);"));
+        id_client_3 = new QLineEdit(tab_18);
+        id_client_3->setObjectName(QString::fromUtf8("id_client_3"));
+        id_client_3->setGeometry(QRect(400, 100, 141, 41));
+        id_client_3->setFont(font);
+        id_client_3->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
+"color:black;"));
+        label_13 = new QLabel(tab_18);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setGeometry(QRect(300, 100, 81, 31));
+        label_13->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 0);"));
+        statistique->addTab(tab_18, QString());
         tabWidget->addTab(tab_3, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
@@ -1951,7 +2002,7 @@ public:
         retranslateUi(MainWindow);
 
         tabWidget->setCurrentIndex(0);
-        statistique->setCurrentIndex(0);
+        statistique->setCurrentIndex(4);
         tabWidget_2->setCurrentIndex(0);
         tabWidget_4->setCurrentIndex(0);
         tabWidget_5->setCurrentIndex(0);
@@ -1983,17 +2034,20 @@ public:
         label_4->setText(QCoreApplication::translate("MainWindow", "Prenom", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Email", nullptr));
         label_6->setText(QCoreApplication::translate("MainWindow", "Adresse", nullptr));
-        label_7->setText(QCoreApplication::translate("MainWindow", "historique", nullptr));
-        label_13->setText(QCoreApplication::translate("MainWindow", "IDC", nullptr));
+        pushButton_11->setText(QCoreApplication::translate("MainWindow", "passer", nullptr));
         statistique->setTabText(statistique->indexOf(tab_8), QCoreApplication::translate("MainWindow", "Tab 1", nullptr));
-        groupBox_6->setTitle(QCoreApplication::translate("MainWindow", "systeme de recommandation", nullptr));
-        pushButton_29->setText(QCoreApplication::translate("MainWindow", "recomander les achats", nullptr));
+        groupBox_6->setTitle(QCoreApplication::translate("MainWindow", "Fid\303\251lit\303\251", nullptr));
+        pushButton_29->setText(QCoreApplication::translate("MainWindow", "Clients fidelles", nullptr));
         statistique->setTabText(statistique->indexOf(tab_9), QCoreApplication::translate("MainWindow", "Tab 2", nullptr));
         pushButton_34->setText(QCoreApplication::translate("MainWindow", "Statiques", nullptr));
         groupBox_11->setTitle(QCoreApplication::translate("MainWindow", "Statistique", nullptr));
         statistique->setTabText(statistique->indexOf(tab_17), QCoreApplication::translate("MainWindow", "Page", nullptr));
         pushButton_35->setText(QCoreApplication::translate("MainWindow", "Historique", nullptr));
         statistique->setTabText(statistique->indexOf(tab_16), QCoreApplication::translate("MainWindow", "Page", nullptr));
+        pushButton_Ajouter->setText(QCoreApplication::translate("MainWindow", "Ajouter poids", nullptr));
+        label_7->setText(QString());
+        label_13->setText(QCoreApplication::translate("MainWindow", "ID", nullptr));
+        statistique->setTabText(statistique->indexOf(tab_18), QCoreApplication::translate("MainWindow", "Page", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "Page", nullptr));
         label_2->setText(QString());
         QTableWidgetItem *___qtablewidgetitem = tableWidget->horizontalHeaderItem(0);

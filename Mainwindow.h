@@ -6,7 +6,7 @@
 #include <QSqlError>
 #include <QTableView>
 #include <QTimer>
-
+#include "arduino.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -41,6 +41,10 @@ private slots:
 
 
 
+    void update_label();
+
+
+
 
     void on_exporter_clicked();
 
@@ -49,6 +53,16 @@ private slots:
 
     void on_pushButton_35_clicked();
 
+    void on_pushButton_11_clicked();
+    bool ajouterCommande(int idcl, int idc);
+    /////////////////////////////////////////
+
+
+
+    void onWeightDetected(const double weight);
+
+    void on_pushButton_Ajouter_clicked();
+
 private:
     Ui::MainWindow *ui;
     Client Etmp;
@@ -56,6 +70,16 @@ QTimer *searchTimer;
      QSqlTableModel *model;
 void modifierClient();
 void on_pushButton_12_clicked();
+bool weightDetected = false;
+
+
+
+
+QByteArray data; // variable contenant les données reçues
+
+Arduino A; // objet temporaire
+
+
 };
 
 #endif // MAINWINDOW_H

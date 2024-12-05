@@ -3,14 +3,15 @@
 #include <QSqlError>
 #include <QMessageBox>
 #include <QString>
-Client::Client(int idcl, QString nomcl, QString prenomcl, QString emailcl, QString adressecl, QString histocl, int IDC) {
+Client::Client(int idcl, QString nomcl, QString prenomcl, QString emailcl, QString adressecl) {
     this->idcl = idcl;
     this->nomcl = nomcl;
     this->prenomcl = prenomcl;
     this->emailcl = emailcl;
     this->adressecl = adressecl;
-    this->histocl = histocl;
-    this->IDC = IDC;
+
+
+
 
 
        // N'oubliez pas de définir idc ici
@@ -68,63 +69,102 @@ void Client::setadressecl(const QString& adresse) {
     adressecl = adresse;
 }
 
-// Getter pour histocl
-QString Client::gethistocl() const {
-    return histocl;
-}
-
-// Setter pour histocl
-void Client::sethistocl(const QString& historique) {
-    histocl = historique;
-}
-
-// Getter pour IDC
-int Client::getIDC() const {
-    return IDC;
-}
-
-// Setter pour IDC
-void Client::setIDC(int idc) {
-    IDC = idc;
-}
 
 
 
 
-bool Client::ajouter()
-{
+
+
+bool Client::ajouter() {
+    // Débogage des données avant insertion
+    qDebug() << "Tentative d'ajout :"
+             << "IDCL =" << idcl
+             << ", NOMCL =" << nomcl
+             << ", PRENOMCL =" << prenomcl
+             << ", EMAILCL =" << emailcl
+             << ", ADRESSECL =" << adressecl;
+
+    // Vérification si l'IDCL existe déjà dans la base
+    QSqlQuery queryCheck;
+    queryCheck.prepare("SELECT COUNT(*) FROM CLIENT WHERE IDCL = :idcl");
+    queryCheck.bindValue(":idcl", idcl);
+
+    if (!queryCheck.exec()) {
+        qDebug() << "Erreur SQL lors de la vérification de l'IDCL :" << queryCheck.lastError().text();
+        return false;
+    }
+
+    if (queryCheck.next() && queryCheck.value(0).toInt() > 0) {
+        qDebug() << "Erreur : IDCL déjà existant.";
+        QMessageBox::warning(nullptr, "Erreur", "L'ID client existe déjà dans la base.");
+        return false;
+    }
+
+    // Préparation de la requête pour insérer les données dans CLIENT
     QSqlQuery query;
+    query.prepare("INSERT INTO CLIENT (IDCL, NOMCL, PRENOMCL, EMAILCL, ADRESSECL) "
+                  "VALUES (:idcl, :nomcl, :prenomcl, :emailcl, :adressecl)");
+    query.bindValue(":idcl", idcl);
+    query.bindValue(":nomcl", nomcl);
+    query.bindValue(":prenomcl", prenomcl);
+    query.bindValue(":emailcl", emailcl);
+    query.bindValue(":adressecl", adressecl);
 
-    // Étape 1 : Insérer le client
-    query.prepare("INSERT INTO CLIENT (IDCL, NOMCL, PRENOMCL, EMAILCL, ADRESSECL, HISTOCL, IDC, DATECL) "
-                  "VALUES (:IDCL, :NOMCL, :PRENOMCL, :EMAILCL, :ADRESSECL, :HISTOCL, :IDC, SYSDATE)");
-    query.bindValue(":IDCL", idcl);
-    query.bindValue(":NOMCL", nomcl);
-    query.bindValue(":PRENOMCL", prenomcl);
-    query.bindValue(":EMAILCL", emailcl);
-    query.bindValue(":ADRESSECL", adressecl);
-    query.bindValue(":HISTOCL", histocl);
-    query.bindValue(":IDC", IDC);
-
+    // Exécution de la requête et gestion des erreurs
     if (!query.exec()) {
-        qDebug() << "Erreur lors de l'ajout du client : " << query.lastError().text();
+        qDebug() << "Erreur SQL lors de l'ajout du client :" << query.lastError().text();
+        QMessageBox::critical(nullptr, "Erreur", "Erreur lors de l'ajout du client. Vérifiez les données.");
         return false;
     }
 
-    // Étape 2 : Mettre à jour COMMANDEPREFEREE pour ce client
-    QSqlQuery updateQuery;
-    updateQuery.prepare("UPDATE CLIENT SET COMMANDEPREFEREE = :IDC WHERE IDCL = :IDCL");
-    updateQuery.bindValue(":IDC", IDC);
-    updateQuery.bindValue(":IDCL", idcl);
-
-    if (!updateQuery.exec()) {
-        qDebug() << "Erreur lors de la mise à jour de la commande préférée : " << updateQuery.lastError().text();
-        return false;
-    }
-
-    qDebug() << "Client ajouté avec succès et commande préférée mise à jour.";
+    // Ajout réussi
+    qDebug() << "Ajout du client réussi.";
     return true;
 }
+
+
+// Vérifie si un client existe dans la table CLIENT
+bool Client::existe(int idcl) {
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM CLIENT WHERE ID = :idcl");
+    query.bindValue(":idcl", idcl);
+
+    if (query.exec() && query.next()) {
+        return query.value(0).toInt() > 0; // Retourne true si le client existe
+    }
+    return false;
+}
+
+// Ajoute une association dans la table PASSER
+bool Client::addToPasser(int idcl, int idc) {
+    QSqlQuery query;
+    query.prepare("INSERT INTO PASSER (idc, idcl, datecl) VALUES (:idc, :idcl, :datecl)");
+    query.bindValue(":idc", idc);
+    query.bindValue(":idcl", idcl);
+    query.bindValue(":datecl", QDate::currentDate().toString("yyyy-MM-dd"));
+
+    if (!query.exec()) {
+        qDebug() << "Erreur lors de l'ajout dans PASSER :" << query.lastError().text();
+        return false;
+    }
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,8 +279,8 @@ QSqlQueryModel * Client::afficher()
     model->setHeaderData(2,Qt::Horizontal,QObject::tr("prenomcl"));
     model->setHeaderData(3,Qt::Horizontal,QObject::tr("emailcl"));
     model->setHeaderData(4,Qt::Horizontal,QObject::tr("adressecl"));
-    model->setHeaderData(5,Qt::Horizontal,QObject::tr("histocl"));
-    model->setHeaderData(6,Qt::Horizontal,QObject::tr("IDC"));
+
+
     return model;
 }
 
@@ -287,7 +327,7 @@ QSqlQueryModel * Client::afficher()
 
 */
 bool Client::modifierClient(int idcl, const QString& nomcl, const QString& prenomcl, const QString& emailcl,
-                                 const QString& adressecl, const QString& histocl, int IDC) {
+                            const QString& adressecl) {
     QSqlQuery query;
     QString queryString = "UPDATE CLIENT SET ";
 
@@ -309,14 +349,9 @@ bool Client::modifierClient(int idcl, const QString& nomcl, const QString& preno
         queryString += (firstUpdate ? "" : ", ") + QString("ADRESSECL = :adressecl");
         firstUpdate = false;
     }
-    if (!histocl.isEmpty()) {
-        queryString += (firstUpdate ? "" : ", ") + QString("HISTOCL = :histocl");
-        firstUpdate = false;
-    }
-    if (IDC != -1) {
-        queryString += (firstUpdate ? "" : ", ") + QString("IDC = :IDC");
-        firstUpdate = false;
-    }
+
+
+
 
     queryString += " WHERE IDCL = :idcl";
     query.prepare(queryString);
@@ -325,17 +360,16 @@ bool Client::modifierClient(int idcl, const QString& nomcl, const QString& preno
     if (!prenomcl.isEmpty()) query.bindValue(":prenomcl", prenomcl);
     if (!emailcl.isEmpty()) query.bindValue(":emailcl", emailcl);
     if (!adressecl.isEmpty()) query.bindValue(":adressecl", adressecl);
-    if (!histocl.isEmpty()) query.bindValue(":histocl", histocl);
-    if (IDC != -1) query.bindValue(":IDC", IDC);
-    query.bindValue(":idcl", idcl);
+
+
 
     if (query.exec()) {
         if (!nomcl.isEmpty()) setnomcl(nomcl);
         if (!prenomcl.isEmpty()) setprenomcl(prenomcl);
         if (!emailcl.isEmpty()) setemailcl(emailcl);
         if (!adressecl.isEmpty()) setadressecl(adressecl);
-        if (!histocl.isEmpty()) sethistocl(histocl);
-        if (IDC != -1) setIDC(IDC);
+
+
 
         return true;
     }
@@ -343,14 +377,18 @@ bool Client::modifierClient(int idcl, const QString& nomcl, const QString& preno
     qDebug() << "Erreur lors de la mise à jour : " << query.lastError().text();
     return false;
 }
+
+/*
 QSqlQueryModel* Client::trier(const QString& colonne, const QString& direction) {
     QSqlQuery query;
 
-    // Créer la requête de base
-    QString queryString = "SELECT * FROM CLIENT ";  // Assurez-vous que la table s'appelle bien "CLIENT"
-
-    // Appliquer le tri en fonction de la colonne et de la direction choisies
-    queryString += "ORDER BY " + colonne + " " + direction;  // Tri basé sur la colonne et la direction
+    // Construire la requête SQL avec une jointure
+    QString queryString =
+        "SELECT CLIENT.IDCL, CLIENT.NOMCL, CLIENT.PRENOMCL, CLIENT.EMAILCL, CLIENT.ADRESSECL, "
+        "PASSER.DATECL "
+        "FROM CLIENT "
+        "LEFT JOIN PASSER ON CLIENT.IDCL = PASSER.IDCL " // Jointure entre CLIENT et PASSER
+        "ORDER BY " + colonne + " " + direction;
 
     query.prepare(queryString);
 
@@ -375,11 +413,66 @@ QSqlQueryModel* Client::trier(const QString& colonne, const QString& direction) 
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOMCL"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("EMAILCL"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("ADRESSECL"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("HISTOCL"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("IDC"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("DATECL"));
 
     return model;
 }
+*/
+
+
+
+QSqlQueryModel* Client::trier(const QString& colonne, const QString& direction) {
+    QSqlQuery query;
+
+    // Construire la requête SQL avec une jointure
+    QString queryString =
+        "SELECT CLIENT.IDCL, CLIENT.NOMCL, PASSER.DATECL "
+        "FROM CLIENT "
+        "INNER JOIN PASSER ON CLIENT.IDCL = PASSER.IDCL " // Jointure entre CLIENT et PASSER
+        "ORDER BY " + colonne + " " + direction;
+
+    query.prepare(queryString);
+
+    // Exécuter la requête
+    if (!query.exec()) {
+        qDebug() << "Erreur de la requête SQL : " << query.lastError().text();
+        return nullptr;  // En cas d'erreur, renvoyer nullptr
+    }
+
+    // Créer un modèle pour afficher les données
+    QSqlQueryModel* model = new QSqlQueryModel();
+    model->setQuery(query);
+
+    // Vérifiez si les résultats de la requête ont été chargés correctement
+    if (model->rowCount() == 0) {
+        qDebug() << "Aucun résultat trouvé.";
+    }
+
+    // Définir les en-têtes des colonnes
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("IDCL"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOMCL"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("DATECL"));
+
+    return model;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -408,33 +501,23 @@ QSqlQueryModel* Client::rechercher(const QString &partialSearch) {
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRENOMCL"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("EMAILCL"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("ADRESSECL"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("HISTOCL"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("IDC"));
+
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("IDC"));
 
     // Retourner le modèle
     return model;
 }
-bool Client::existe() {
-    QSqlQuery query;
-    query.prepare("SELECT COUNT(*) FROM clients WHERE IDC = :IDC");  // Vérification uniquement sur l'IDC
-    query.bindValue(":IDC", this->IDC);  // L'IDC doit être unique
-    if (query.exec()) {
-        query.next();
-        int count = query.value(0).toInt();
-        return count > 0;  // Retourne true si un client avec cet IDC existe déjà
-    }
-    return false;  // Retourne false si la requête échoue
-}
+
 
 
 
 bool Client::mettreAJour() {
     QSqlQuery query;
-    query.prepare("UPDATE clients SET nom = :nom, prenom = :prenom, adresse = :adresse, histo_achat = :histo_achat WHERE email = :email");
+    query.prepare("UPDATE CLIENT SET nom = :nom, prenom = :prenom, adresse = :adresse WHERE email = :email");
     query.bindValue(":nom", this->nomcl);
     query.bindValue(":prenom", this->prenomcl);
     query.bindValue(":adresse", this->adressecl);
-    query.bindValue(":histo_achat", this->histocl);
+
     query.bindValue(":email", this->emailcl);
 
     return query.exec(); // Retourne true si la mise à jour est réussie

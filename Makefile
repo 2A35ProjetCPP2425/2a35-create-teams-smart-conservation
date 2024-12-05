@@ -338,6 +338,7 @@ Makefile: rendu1009.pro ../../../../Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/win32-g++/
 		../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6OpenGL.prl \
 		../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Gui.prl \
 		../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Sql.prl \
+		../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6SerialPort.prl \
 		../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Core.prl \
 		../../../../Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/build_pass.prf \
 		img.qrc
@@ -610,6 +611,7 @@ rendu1009.pro:
 ../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6OpenGL.prl:
 ../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Gui.prl:
 ../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Sql.prl:
+../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6SerialPort.prl:
 ../../../../Qt/Qt6.3.0/6.3.0/mingw_64/lib/Qt6Core.prl:
 ../../../../Qt/Qt6.3.0/6.3.0/mingw_64/mkspecs/features/build_pass.prf:
 img.qrc:

@@ -7,6 +7,10 @@ QT += widgets printsupport
 
 QT += charts
 
+QT += serialport
+CONFIG += c++11
+QT += serialport sql
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,12 +22,14 @@ CONFIG += c++17
 
 SOURCES += \
     Mainwindow.cpp \
+    arduino.cpp \
     client.cpp \
     connexion.cpp \
     main.cpp
 
 HEADERS += \
     Mainwindow.h \
+    arduino.h \
     client.h \
     connexion.h
 
