@@ -1,5 +1,6 @@
 QT += core gui multimedia sql
 QT+=charts
+QT+=serialport
 include("C:\Users\mehdi\Downloads\Qt-QrCodeGenerator-main\Qt-QrCodeGenerator-main\Qt-QrCodeGenerator.pri")
 #INCLUDEPATH+=C:/opencv/build/include
 #LIBS+=-LC:/opencv/build/x64/vc16/lib -lopencv_world4100
@@ -16,6 +17,7 @@ CONFIG += c++17
 
 SOURCES += \
     #camera.cpp \
+    arduino.cpp \
     connexion.cpp \
     equipement.cpp \
     main.cpp \
@@ -23,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
 # camera.h \
+    arduino.h \
     connexion.h \
     equipement.h \
     secondwindow.h

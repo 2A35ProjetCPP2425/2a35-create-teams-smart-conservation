@@ -2,6 +2,7 @@
 #define SECONDWINDOW_H
 #include <QMainWindow>
 #include"equipement.h"
+#include"arduino.h"
 #include<QTableView>
 //#include <opencv2/opencv.hpp>
 
@@ -22,12 +23,13 @@ public:
     //void exportTableViewToExcel(QTableView *tableView);
     void clear();
     void createChart();
-
-
+    void updateDatabase(const QString &movementStatus);
+   // void readArduinoData();
+    void sendDataToArduino(const QString &data);
 
 private slots:
 
-
+    void update_label();
     void on_pushButton_22_clicked();
 
     void on_pushButton_25_clicked();
@@ -51,9 +53,15 @@ private slots:
     void on_pushButton_clicked();
     void on_pushButton_5_clicked();
 
+   // void on_pushButton_2_clicked();
+
+   // void on_pushButton_26_clicked();
+
 private:
     Ui::MainWindow *ui;
     equipement e;
    // equipement eq;
+    QByteArray data;
+    Arduino A;
 };
 #endif // SECONDWINDOW_H

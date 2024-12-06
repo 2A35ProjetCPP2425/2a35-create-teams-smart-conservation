@@ -160,12 +160,95 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->tableView->model(), &QAbstractItemModel::dataChanged, this, &MainWindow::createChart);
     connect(ui->tableView->model(), &QAbstractItemModel::rowsInserted, this, &MainWindow::createChart);
     connect(ui->tableView->model(), &QAbstractItemModel::rowsRemoved, this, &MainWindow::createChart);
+    int ret = A.connect_arduino(); // Connect to Arduino
+    switch (ret) {
+    case 0:
+        qDebug() << "Arduino connected to:" << A.getarduino_port_name();
+        break;
+    case 1:
+        qDebug() << "Arduino is available but not connected.";
+        break;
+    case -1:
+        qDebug() << "Arduino not found.";
+        return;
+    }
 
+    connect(A.getserial(), &QSerialPort::readyRead, this, &::MainWindow::update_label);
 
 }
 
 
+/*void MainWindow::on_pushButton_2_clicked()
+{
+    int ret = A.connect_arduino();
+    if (ret == 0) {
+        connect(A.getserial(), &QSerialPort::readyRead, this, &::MainWindow::readArduinoData);
+        ui->label_13->setText("Sensor enabled!");
+    } else {
+        ui->label_13->setText("Failed to enable sensor.");
+    }
 
+}
+void MainWindow::on_pushButton_26_clicked()
+    {
+    disconnect(A.getserial(), &QSerialPort::readyRead, this, &::MainWindow::readArduinoData);
+    ui->label_13->setText("Sensor disabled.");
+
+    }*/
+void MainWindow::update_label()
+{
+    QByteArray data = A.read_from_arduino();
+    QString message = QString::fromUtf8(data).trimmed();
+
+    qDebug() << "Received data:" << message;
+
+
+    if (message == "1") {
+        ui->label_13->setText("Motion Detected");
+        ui->label_13->repaint();
+        updateDatabase("1");
+        sendDataToArduino("1");
+    } else if (message == "0") {
+        ui->label_13->setText("No Motion");
+        ui->label_13->repaint();
+        updateDatabase("0");
+        sendDataToArduino("0");
+    } else {
+        qDebug() << "Unexpected message:" << message;
+    }
+}
+
+
+void MainWindow::sendDataToArduino(const QString &data)
+{
+    QByteArray command = data.toUtf8();
+    A.write_to_arduino(command);
+    qDebug() << "Sent command to Arduino:" << command;
+}
+
+void MainWindow::updateDatabase(const QString &movementStatus)
+{
+    QSqlQuery query;
+    query.prepare("UPDATE MEHDI.PRODUIT SET MOVEMENT = :movement WHERE IDP = :id");
+
+
+    if (movementStatus == "1") {
+        query.bindValue(":movement", 1);
+    } else {
+        query.bindValue(":movement", 0);
+    }
+
+
+    query.bindValue(":id", 1);
+
+
+    if (query.exec()) {
+        qDebug() << "Database updated successfully!";
+    } else {
+
+        qDebug() << "Error updating database:" << query.lastError().text();
+    }
+}
 
 
 void MainWindow::exportTableViewToPDF(QTableView *tableView) {
@@ -539,6 +622,7 @@ void MainWindow::on_pushButton_clicked()
     ui->label_4->setText(e.diagnostic(id));
     ui->label_5->setText(e.reparation(id));
 }
+
 void MainWindow::createChart(){
     // Step 1: Get data from the model (your tableview model)
     QAbstractItemModel *model = ui->tableView->model();
@@ -641,6 +725,12 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+
+
+
+
 
 
 

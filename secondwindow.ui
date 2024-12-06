@@ -2480,7 +2480,7 @@ QPushButton:pressed {
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_14">
         <attribute name="title">
@@ -2503,7 +2503,7 @@ color:black;</string>
         <widget class="QLabel" name="label_12">
          <property name="geometry">
           <rect>
-           <x>10</x>
+           <x>20</x>
            <y>10</y>
            <width>211</width>
            <height>571</height>
@@ -3030,7 +3030,7 @@ QPushButton:pressed {
           </rect>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="tab_16">
           <attribute name="title">
@@ -3286,6 +3286,88 @@ color:black;</string>
           <attribute name="title">
            <string>Page</string>
           </attribute>
+         </widget>
+         <widget class="QWidget" name="tab_19">
+          <attribute name="title">
+           <string>Page</string>
+          </attribute>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>100</y>
+             <width>141</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: white;                      /* Text color */
+    border: 2px solid black;         /* Border width and color */
+    border-radius: 15px;              /* Round the corners */
+    background-color: #005e38;        /* Optional: Set a background color */
+    padding: 10px 20px;               /* Add padding for better aesthetics */
+}
+
+QPushButton:hover {
+    background-color: #45a049;        /* Change background color on hover */
+}
+
+QPushButton:pressed {
+    background-color: #3e8e41;        /* Change background color when pressed */
+}</string>
+           </property>
+           <property name="text">
+            <string>start</string>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_13">
+           <property name="geometry">
+            <rect>
+             <x>350</x>
+             <y>100</y>
+             <width>131</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+color:black;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="pushButton_26">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>160</y>
+             <width>141</width>
+             <height>51</height>
+            </rect>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    color: white;                      /* Text color */
+    border: 2px solid black;         /* Border width and color */
+    border-radius: 15px;              /* Round the corners */
+    background-color: #005e38;        /* Optional: Set a background color */
+    padding: 10px 20px;               /* Add padding for better aesthetics */
+}
+
+QPushButton:hover {
+    background-color: #45a049;        /* Change background color on hover */
+}
+
+QPushButton:pressed {
+    background-color: #3e8e41;        /* Change background color when pressed */
+}</string>
+           </property>
+           <property name="text">
+            <string>stop</string>
+           </property>
+          </widget>
          </widget>
         </widget>
        </widget>
