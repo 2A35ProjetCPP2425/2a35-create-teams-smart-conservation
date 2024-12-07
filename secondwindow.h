@@ -5,6 +5,8 @@
 #include <QMainWindow>
 #include "personel.h"
 #include"equipement.h"
+#include"client.h"
+#include"commande.h"
 #include <QCompleter>
 #include <QStringListModel>
 #include <QListView>
@@ -26,6 +28,14 @@ public:
     //void exportTableViewToExcel(QTableView *tableView);
     void clear();
     void createChart();
+    void setupTableView();
+    void on_tableView_clicked(const QModelIndex &index);
+   void resetFields();
+    void  setupConnections();
+    void connectToDatabase();
+    void updateClientData(QWidget *editor);
+    bool ajouterCommande(int idcl, int idc);
+    void modifierClient();
 
 private slots:
 
@@ -81,6 +91,57 @@ private slots:
     void on_pushButton_6_clicked();
 
     void on_pushButton_26_clicked();
+    ///////////////////////////// client
+   void on_pushButton_10_clicked();
+        // Assurez-vous que cette ligne existe
+    void on_pushButton_13_clicked();
+    void on_charger_clicked();
+
+
+    void on_comboBox_2_activated(int index);
+
+    void on_lineEdit_2_textChanged(const QString &arg1);
+   // void on_searchTimeout();
+
+
+
+
+    void on_exporter_clicked();
+
+    void on_pushButton_29_clicked();
+    void on_pushButton_34_clicked();
+
+    void on_pushButton_35_clicked();
+
+    void on_pushButton_11_clicked();
+    void on_pushButton_12_clicked();
+
+    ///////////commande////////////
+    void on_AjoutCo_clicked();
+
+    void on_supco_clicked();
+
+    //void on_pushButton_clicked();
+
+    void on_Commandelist_activated(const QModelIndex &index);
+
+    void on_chercherC_clicked();
+
+    void on_statistique_clicked();
+
+    //  void on_comboBox_activated(const QString &arg1);
+
+    void on_exportpdf_clicked();
+
+    void on_pushButton_18_clicked();
+
+    void on_etatmodifier_clicked();
+
+    void on_comboBox_currentTextChanged(const QString &arg1);
+
+    ///
+
+    void on_pushButton_19_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -89,7 +150,15 @@ private:
     QCompleter *completer;  // Declare QCompleter as a member
     QString useremail;
     equipement e;
+   Client Etmp;
+    QTimer *searchTimer;
+    QSqlTableModel *model;
+    Commande CL;
+
+
 
 
 };
 #endif // SECONDWINDOW_H
+//////////////////////////////////////////////
+
